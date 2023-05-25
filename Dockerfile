@@ -20,8 +20,6 @@ RUN apt-get -q update && apt-get -y upgrade && \
 
 USER ${NB_UID}
 
-RUN echo ${NB_UID}
-
 # install Python3 packages (only support commonly used packages, students should install their own packages)
 RUN conda install --quiet --yes \
     "bokeh>=3.0.3" \
@@ -46,7 +44,7 @@ RUN git clone https://github.com/PAIR-code/facets.git && \
     fix-permissions "${CONDA_DIR}" && \
     fix-permissions "/home/${NB_USER}"
 
-# install datapy to access databricks
+# install datapy to access databricks (doesn't work with uid=${NB_UID})
 RUN pip install --upgrade pip
 RUN --mount=type=secret,id=PYPI_PASSWORD,uid=1000 pip install --extra-index-url=https://$(cat /run/secrets/PYPI_PASSWORD)@pkgs.dev.azure.com/uwcip/uwcip/_packaging/uwcip-pypi-dev/pypi/simple datapy && \
 fix-permissions "${CONDA_DIR}" && fix-permissions "/home/${NB_USER}"

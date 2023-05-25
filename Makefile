@@ -20,7 +20,7 @@ all: build
 .PHONY: build
 build:
 	@echo "building image for ${IMAGE_ID}"
-	docker build --secret id=PYPI_PASSWORD --no-cache --progress plain -t $(IMAGE_NAME):latest .
+	DOCKER_BUILDKIT=1 docker build --secret id=PYPI_PASSWORD --progress plain -t $(IMAGE_NAME):latest .
 
 .PHONY: push
 push: build
