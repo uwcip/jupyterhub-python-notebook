@@ -21,6 +21,8 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: build and push
+        secrets: |
+          "PYPI_PASSWORD=${{ secrets.PYPI_PASSWORD }}"
         run: make push clean
 
       - uses: 8398a7/action-slack@v3
