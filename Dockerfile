@@ -49,6 +49,8 @@ RUN pip install --upgrade pip
 RUN --mount=type=secret,id=PYPI_PASSWORD,uid=1000 pip install --extra-index-url=https://$(cat /run/secrets/PYPI_PASSWORD)@pkgs.dev.azure.com/uwcip/uwcip/_packaging/uwcip-pypi-dev/pypi/simple datapy && \
 fix-permissions "${CONDA_DIR}" && fix-permissions "/home/${NB_USER}"
 
+RUN pip install --no-cache-dir azure-cli>=2.49.0 && \
+fix-permissions "${CONDA_DIR}" && fix-permissions "/home/${NB_USER}"
 
 # import matplotlib the first time to build the font cache.
 ENV XDG_CACHE_HOME="/home/${NB_USER}/.cache/"
