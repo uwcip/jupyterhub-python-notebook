@@ -46,7 +46,7 @@ RUN git clone https://github.com/PAIR-code/facets.git && \
 
 # install datapy to access databricks (doesn't work with uid=${NB_UID})
 RUN pip install --upgrade pip
-RUN --mount=type=secret,id=PYPI_PASSWORD,uid=1000 pip install --extra-index-url=https://$(cat /run/secrets/PYPI_PASSWORD)@pkgs.dev.azure.com/uwcip/uwcip/_packaging/uwcip-pypi-dev/pypi/simple datapy && \
+RUN --mount=type=secret,id=PYPI_PASSWORD,uid=1000 pip install --extra-index-url=https://$(cat /run/secrets/PYPI_PASSWORD)@pkgs.dev.azure.com/uwcip/uwcip/_packaging/uwcip-pypi/pypi/simple/ datapy && \
 fix-permissions "${CONDA_DIR}" && fix-permissions "/home/${NB_USER}"
 
 RUN pip install --no-cache-dir azure-cli>=2.49.0 && \
